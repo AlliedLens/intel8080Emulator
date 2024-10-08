@@ -397,7 +397,477 @@ int disassemble8080(unsigned char* codebuffer, int pc){
         case 0x6f: 
             printf(" MOV L,A; L <-- A ");
             break;
+        
+        case 0x70: 
+            printf(" MOV M,B; (HL) <-- B ");
+            break;
+        case 0x71:
+            printf(" MOV M,C; (HL) <-- C ");
+            break;
+        case 0x72: 
+            printf(" MOV M,D; (HL) <-- D ");
+            break;
+        case 0x73:
+            printf(" MOV M,E; (HL) <-- E ");
+            break;
+        case 0x74: 
+            printf(" MOV M,H; (HL) <-- H ");
+            break;
+        case 0x75: 
+            printf(" MOV M,L; (HL) <-- L ");
+            break;
+        case 0x76: 
+            printf(" HLT; special? ");
+            break;
+        case 0x77:
+            printf(" MOV M,A; (HL) <-- A ");
+            break;
+        case 0x78: 
+            printf(" MOV A,B; A <-- B ");
+            break;
+        case 0x79:  
+            printf(" MOV A,C; A <-- C ");
+            break;
+        case 0x7a: 
+            printf(" MOV A,D; A <--  D" );
+            break;
+        case 0x7b: 
+            printf(" MOV A,E; A <-- E ");
+            break;
+        case 0x7c: 
+            printf(" MOV A,H; A <-- H ");
+            break;
+        case 0x7d: 
+            printf(" MOV A,L; A <-- L ");
+            break;
+        case 0x7e: 
+            printf(" MOV A,M; A <-- (HL) ");
+            break;
+        case 0x7f: 
+            printf(" MOV A,A; A <-- A ");
+            break;
 
+        case 0x80: 
+            printf(" ADD B; A <-- A + B ");
+            break;
+        case 0x81:
+            printf(" ADD C; A <-- A + C ");
+            break;
+        case 0x82: 
+            printf(" ADD D; A <-- A + D ");
+            break;
+        case 0x83:
+            printf(" ADD E; A <-- A + E ");
+            break;
+        case 0x84: 
+            printf(" ADD H; A <-- A + H ");
+            break;
+        case 0x85: 
+            printf(" ADD L; A <-- A + L ");
+            break;
+        case 0x86: 
+            printf(" ADD M; A <-- A + (HL) ");
+            break;
+        case 0x87:
+            printf(" ADD A; A <-- A + A ");
+            break;
+        case 0x88: 
+            printf(" ADC B; A <-- A + B + CY ");
+            break;
+        case 0x89:  
+            printf(" ADC C; A <-- A + C + CY ");
+            break;
+        case 0x8a: 
+            printf(" ADC D; A <-- A + D + CY " );
+            break;
+        case 0x8b: 
+            printf(" ADC E; A <-- A + E + CY ");
+            break;
+        case 0x8c: 
+            printf(" ADC H; A <-- A + H + CY ");
+            break;
+        case 0x8d: 
+            printf(" ADC L; A <-- A + L + CY ");
+            break;
+        case 0x8e: 
+            printf(" ADC M; A <-- A + (HL) + CY ");
+            break;
+        case 0x8f: 
+            printf(" ADC A; A <-- A + A + CY ");
+            break;
+
+        case 0x90: 
+            printf(" SUB B; A <-- A + B ");
+            break;
+        case 0x91:
+            printf(" SUB C; A <-- A - C ");
+            break;
+        case 0x92: 
+            printf(" SUB D; A <-- A - D ");
+            break;
+        case 0x93:
+            printf(" SUB E; A <-- A - E ");
+            break;
+        case 0x94: 
+            printf(" SUB H; A <-- A - H ");
+            break;
+        case 0x95: 
+            printf(" SUB L; A <-- A - L ");
+            break;
+        case 0x96: 
+            printf(" SUB M; A <-- A - (HL) ");
+            break;
+        case 0x97:
+            printf(" SUB A; A <-- A - A ");
+            break;
+        case 0x98: 
+            printf(" SBB B; A <-- A - B - CY ");
+            break;
+        case 0x99:  
+            printf(" SBB C; A <-- A - C - CY ");
+            break;
+        case 0x9a: 
+            printf(" SBB D; A <-- A - D - CY " );
+            break;
+        case 0x9b: 
+            printf(" SBB E; A <-- A - E - CY ");
+            break;
+        case 0x9c: 
+            printf(" SBB H; A <-- A - H - CY ");
+            break;
+        case 0x9d: 
+            printf(" SBB L; A <-- A - L - CY ");
+            break;
+        case 0x9e: 
+            printf(" SBB M; A <-- A - (HL) - CY ");
+            break;
+        case 0x9f: 
+            printf(" SBB A; A <-- A - A - CY ");
+            break;
+
+        case 0xA0: 
+            printf(" ANA B; A <-- A & B ");
+            break;
+        case 0xA1:
+            printf(" ANA C; A <-- A & C ");
+            break;
+        case 0xA2: 
+            printf(" ANA D; A <-- A & D ");
+            break;
+        case 0xA3:
+            printf(" ANA E; A <-- A & E ");
+            break;
+        case 0xA4: 
+            printf(" ANA H; A <-- A & H ");
+            break;
+        case 0xA5: 
+            printf(" ANA L; A <-- A & L ");
+            break;
+        case 0xA6: 
+            printf(" ANA M; A <-- A & (HL) ");
+            break;
+        case 0xA7:
+            printf(" ANA A; A <-- A & A ");
+            break;
+        case 0xA8: 
+            printf(" XRA B; A <-- A ^ B ");
+            break;
+        case 0xA9:  
+            printf(" XRA C; A <-- A ^ C ");
+            break;
+        case 0xAa: 
+            printf(" XRA D; A <-- A ^ D " );
+            break;
+        case 0xAb: 
+            printf(" XRA E; A <-- A ^ E ");
+            break;
+        case 0xAc: 
+            printf(" XRA H; A <-- A ^ H ");
+            break;
+        case 0xAd: 
+            printf(" XRA L; A <-- A ^ L ");
+            break;
+        case 0xAe: 
+            printf(" XRA M; A <-- A ^ (HL) ");
+            break;
+        case 0xAf: 
+            printf(" XRA A; A <-- A ^ A ");
+            break;
+
+
+        case 0xB0: 
+            printf(" ORA B; A <-- A | B ");
+            break;
+        case 0xB1:
+            printf(" ORA C; A <-- A | C ");
+            break;
+        case 0xB2: 
+            printf(" ORA D; A <-- A | D ");
+            break;
+        case 0xB3:
+            printf(" ORA E; A <-- A | E ");
+            break;
+        case 0xB4: 
+            printf(" ORA H; A <-- A | H ");
+            break;
+        case 0xB5: 
+            printf(" ORA L; A <-- A | L ");
+            break;
+        case 0xB6: 
+            printf(" ORA M; A <-- A | (HL) ");
+            break;
+        case 0xB7:
+            printf(" ORA A; A <-- A | A ");
+            break;
+        case 0xB8: 
+            printf(" CMP B;  A - B ");
+            break;
+        case 0xB9:  
+            printf(" CMP C;  A - C ");
+            break;
+        case 0xBa: 
+            printf(" CMP D;  A - D " );
+            break;
+        case 0xBb: 
+            printf(" CMP E;  A - E ");
+            break;
+        case 0xBc: 
+            printf(" CMP H;  A - H ");
+            break;
+        case 0xBd: 
+            printf(" CMP L;  A - L ");
+            break;
+        case 0xBe: 
+            printf(" CMP M;  A - (HL) ");
+            break;
+        case 0xBf: 
+            printf(" CMP A;  A - A ");
+            break;
+
+        case 0xC0: 
+            printf(" RNZ; if NZ, Return ");
+            break;
+        case 0xC1:
+            printf(" POP B; C <- (SP); B <- (SP+1); SP <- SP + 2 ");
+            break;
+        case 0xC2: 
+            printf(" JNZ adr; if NZ, PC <-- 0x%04x ", code[2]<<8 | code[1]);
+            opbytes=3;
+            break;
+        case 0xC3:
+            printf(" JMP adr;  PC <-- 0x%04x ", code[2]<<8 | code[1]);
+            opbytes=3;
+            break;
+        case 0xC4: 
+            printf(" CNZ adr;  if NZ, CALL 0x%04x ", code[2]<<8 | code[1]);
+            opbytes=3;
+            break;
+        case 0xC5: 
+            printf(" PUSH B;  (SP-2) <-- C; (SP-1) <-- B ; SP <-- SP - 2 ");
+            break;
+        case 0xC6: 
+            printf(" ADI D8; A <-- A + 0x%02x ", code[1]);
+            opbytes=2;
+            break;
+        case 0xC7: //  all the code at the beginning of the ROM are interrupt service routines, and they can be software generated via the RST instruction
+            printf(" RST 0; A <-- A | A ");
+            break;
+        case 0xC8: 
+            printf(" RZ; if Z, Return ");
+            break;
+        case 0xC9:  
+            printf(" RET;  	PC.lo <- (sp); PC.hi<-(sp+1); SP <- SP+2 ");
+            break;
+        case 0xCA: 
+            printf(" JZ adr;  PC <-- 0x%04x ", code[2]<<8 | code[1] );
+            opbytes=3;
+            break;
+        case 0xCB: 
+            printf(" NOP; no operation ");
+            break;
+        case 0xCC: 
+            printf(" CZ adr;  if Z,  CALL 0x%04x ", code[2]<<8 | code[1] );
+            opbytes=3;
+            break;
+        case 0xCD: 
+            printf(" CALL adr; (SP-1)<-PC.hi;(SP-2)<-PC.lo;SP<-SP-2;PC = 0x%04x", code[2]<<8 | code[1]);
+            opbytes=3;
+            break;
+        case 0xCE: 
+            printf(" ACI D8;  A <-- A + 0x%02x + CY ", code[1]);
+            opbytes=2;
+            break;
+        case 0xCF: 
+            printf(" RST 1;  CALL $8");
+            break;
+
+        case 0xD0: 
+            printf(" RNC; if NCY, Return ");
+            break;
+        case 0xD1:
+            printf(" POP D; E <- (SP); D <- (SP+1); SP <- SP + 2 ");
+            break;
+        case 0xD2: 
+            printf(" JNC adr; if NCY, PC <-- 0x%04x ", code[2]<<8 | code[1]);
+            opbytes=3;
+            break;
+        case 0xD3:
+            printf(" OUT D8;  special? ");
+            opbytes=2;
+            break;
+        case 0xD4: 
+            printf(" CNC adr;  if NCY, CALL (0x%04x) ", code[2]<<8 | code[1]);
+            opbytes=3;
+            break;
+        case 0xD5: 
+            printf(" PUSH B;  (SP-2) <-- E; (SP-1) <-- D ; SP <-- SP - 2 ");
+            break;
+        case 0xD6: 
+            printf(" SUI D8; A <-- A - 0x%02x ", code[1]);
+            opbytes=2;
+            break;
+        case 0xD7: 
+            printf(" RST 2; CALL $10");
+            break;
+        case 0xD8: 
+            printf(" RC; if CY, Return ");
+            break;
+        case 0xD9:  
+            printf(" NOP;  	no operation ");
+            break;
+        case 0xDA: 
+            printf(" JC adr; if CY,  PC <-- 0x%04x ", code[2]<<8 | code[1] );
+            opbytes=3;
+            break;
+        case 0xDB: 
+            printf(" IN D8; special ");
+            opbytes=2;
+            break;
+        case 0xDC: 
+            printf(" CC adr;  if CY,  CALL 0x%04x ", code[2]<<8 | code[1] );
+            opbytes=3;
+            break;
+        case 0xDD: 
+            printf(" NOP; no operation");
+            break;
+        case 0xDE: 
+            printf(" SBI D8;  A <-- A - 0x%02x - CY ", code[1]);
+            opbytes=2;
+            break;
+        case 0xDF: 
+            printf(" RST 3;  CALL $18");
+            break;
+
+        case 0xE0: 
+            printf(" RPO; if PO, Return ");
+            break;
+        case 0xE1:
+            printf(" POP H; L <- (SP); H <- (SP+1); SP <- SP + 2 ");
+            break;
+        case 0xE2: 
+            printf(" JPO adr; if PO, PC <-- 0x%04x ", code[2]<<8 | code[1]);
+            opbytes=3;
+            break;
+        case 0xE3:
+            printf(" XTHL;  L <-> (SP); H <-> (SP+1) ");
+            break;
+        case 0xE4: 
+            printf(" CPO adr;  if PO, CALL (0x%04x) ", code[2]<<8 | code[1]);
+            opbytes=3;
+            break;
+        case 0xE5: 
+            printf(" PUSH H;  (SP-2) <-- L; (SP-1) <-- H ; SP <-- SP - 2 ");
+            break;
+        case 0xE6: 
+            printf(" ANI D8; A <-- A & 0x%02x ", code[1]);
+            opbytes=2;
+            break;
+        case 0xE7: 
+            printf(" RST 4; CALL $20");
+            break;
+        case 0xE8: 
+            printf(" RPE; if PE, Return ");
+            break;
+        case 0xE9:  
+            printf(" PCHL; PC.hi <- H; PC.lo <- L ");
+            break;
+        case 0xEA: 
+            printf(" JPE adr; if PE,  PC <-- 0x%04x ", code[2]<<8 | code[1] );
+            opbytes=3;
+            break;
+        case 0xEB: 
+            printf(" XCHG; 	H <-> D; L <-> E ");
+            opbytes=2;
+            break;
+        case 0xEC: 
+            printf(" CPE adr;  if PE,  CALL 0x%04x ", code[2]<<8 | code[1] );
+            opbytes=3;
+            break;
+        case 0xED: 
+            printf(" NOP; no operation");
+            break;
+        case 0xEE: 
+            printf(" XRI D8;  A <-- A ^ 0x%02x ", code[1]);
+            opbytes=2;
+            break;
+        case 0xEF: 
+            printf(" RST 5;  CALL $18");
+            break;
+
+        case 0xF0: 
+            printf(" RP; if P, Return ");
+            break;
+        case 0xF1:
+            printf(" POP PSW; L <- (SP); H <- (SP+1); SP <- SP + 2 ");
+            break;
+        case 0xF2: 
+            printf(" JP adr; if P=1, PC <-- 0x%04x ", code[2]<<8 | code[1]);
+            opbytes=3;
+            break;
+        case 0xF3:
+            printf(" DI;  special? ");
+            break;
+        case 0xF4: 
+            printf(" CP adr;  if P, CALL (0x%04x) ", code[2]<<8 | code[1]);
+            opbytes=3;
+            break;
+        case 0xF5: 
+            printf(" PUSH PSW;  (SP-2) <-- flags; (SP-1) <-- A ; SP <-- SP - 2 ");
+            break;
+        case 0xF6: 
+            printf(" ORI D8; A <-- A | 0x%02x ", code[1]);
+            opbytes=2;
+            break;
+        case 0xF7: 
+            printf(" RST 6; CALL $30");
+            break;
+        case 0xF8: 
+            printf(" RM; if M, Return ");
+            break;
+        case 0xF9:  
+            printf(" SPHL; SP=HL ");
+            break;
+        case 0xFA: 
+            printf(" JM adr; if M,  PC <-- 0x%04x ", code[2]<<8 | code[1] );
+            opbytes=3;
+            break;
+        case 0xFB: 
+            printf(" EI; special? ");
+            break;
+        case 0xFC: 
+            printf(" CM adr;  if M,  CALL 0x%04x ", code[2]<<8 | code[1] );
+            opbytes=3;
+            break;
+        case 0xFD: 
+            printf(" NOP; no operation");
+            break;
+        case 0xFE: 
+            printf(" CPI D8;  A - 0x%02x ", code[1]);
+            opbytes=2;
+            break;
+        case 0xFF: 
+            printf(" RST 7;  CALL $38");
+            break;
 
         default:
             printf(" unmapped opcode ");
