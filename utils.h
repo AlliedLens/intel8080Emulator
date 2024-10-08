@@ -1,3 +1,6 @@
+#ifndef UTILS_H
+#define UTILS_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,4 +20,8 @@ int openRom(unsigned char** buff, char* filename){
 
     fread(*buff, filesize, 1, f);
     fclose(f);
+
+    return filesize;
 }
+
+#endif

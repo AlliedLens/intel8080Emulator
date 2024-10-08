@@ -1,3 +1,6 @@
+#ifndef DEBUGGING_H
+#define DEBUGGING_H
+
 // void printProgram(unsigned char* buff)
 
 /*
@@ -26,21 +29,31 @@
 
     $4000-:     RAM mirror   
 
-
     Invaders.h is the start of the space invaders program
      
 */
+
 #include <stdio.h>
+#include "disassembler.h"
 
 
 void printProgram(unsigned char* buff, int size){
-    printf("\n======================Program-Code========================\n");
-    for (int i = 0; i < 0x100; i++){
-        for (int j = 0; j < 8; j++){
-            printf(" 0x%x ", buff[i*8 + j]);
-        }
-
-        printf("\n");
+    printf("\n============================================================================Program--Machine--Code=================================================================================\n");
+    for (int i = 0; i < size; i++){
+            printf(" 0x%02x ", buff[i]);
+            if (i % 32 == 0) printf(": 0x%04x \n", i);
     }
-    printf("\n==========================================================\n");
+    printf("\n==============================================================================================================================================================================\n");
 }
+
+void disassembleProgram(unsigned char* buff, int size){
+    printf("\n==========================================================================Program-Dissasembled===================================================================================================\n");
+    int pc = 0;
+    while (pc < size){
+        pc += disassemble8080(buff, pc);
+    }    
+    printf("\n==============================================================================================================================================================================\n");
+
+}
+
+#endif

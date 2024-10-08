@@ -1,3 +1,7 @@
+#ifndef DISASSEMBLER_H
+#define DISASSEMBLER_H
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -26,6 +30,12 @@
          |  PC (Program Counter)|
          -----------------------
 
+There is a problem with trying to understand the flow of the dissasembler, in that if you look at some arbitrary chuk of memory that includes 8080 code, it probably
+has data interleaved in it. For example, the sprites of the ingame chars, may be mixed in with the code, and the dissasembler will read i tas code. 
+
+There is not a whole lot you can do with this, if you see things like:
+
+a jump from known good to an instruction not in ur dissasembly listing, or a stream of nonsense code, then some portion of ur dissasembly is not readable code. 
 
 */
 
@@ -84,7 +94,7 @@ int disassemble8080(unsigned char* codebuffer, int pc){
             opbytes =2;
             break;
         case 0x0f: // right shift A by 1 circularly, and assigns shifted bit to CY flag
-            printf(" RLC; A <-- A>>1, bit 7 =  prev bit 0, CY = prev bit 0 ");
+            printf(" RRC; A <-- A>>1, bit 7 =  prev bit 0, CY = prev bit 0 ");
             break;
         
         case 0x10: // nil
@@ -720,7 +730,7 @@ int disassemble8080(unsigned char* codebuffer, int pc){
             opbytes=3;
             break;
         case 0xD5: 
-            printf(" PUSH B;  (SP-2) <-- E; (SP-1) <-- D ; SP <-- SP - 2 ");
+            printf(" PUSH D;  (SP-2) <-- E; (SP-1) <-- D ; SP <-- SP - 2 ");
             break;
         case 0xD6: 
             printf(" SUI D8; A <-- A - 0x%02x ", code[1]);
@@ -890,3 +900,5 @@ int disassemble8080(unsigned char* codebuffer, int pc){
 
     return opbytes;
 }
+
+#endif
