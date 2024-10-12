@@ -12,23 +12,23 @@
 /*
 
 
-         Intel 8080 Register Layout
-         one register is 8 bits
-         ------------------------------------------------
-         | S   Z   -  AC   -  P   -   C | Flag Register
-         ------------------------------------------------
-         |   A (Accumulator)    |
-         -----------------------
-         |     B   |     C      |
-         -----------------------
-         |     D   |     E      |
-         -----------------------
-         |     H   |     L      |
-         -----------------------
-         |  SP (Stack Pointer)  |
-         -----------------------
-         |  PC (Program Counter)|
-         -----------------------
+Intel 8080 Register Layout
+one register is 8 bits
+------------------------------------------------
+| S   Z   -  AC   -  P   -   C | Flag Register
+------------------------------------------------
+|   A (Accumulator)    |
+-----------------------
+|     B   |     C      |
+-----------------------
+|     D   |     E      |
+-----------------------
+|     H   |     L      |
+-----------------------
+|  SP (Stack Pointer)  |
+-----------------------
+|  PC (Program Counter)|
+-----------------------
 
 There is a problem with trying to understand the flow of the dissasembler, in that if you look at some arbitrary chuk of memory that includes 8080 code, it probably
 has data interleaved in it. For example, the sprites of the ingame chars, may be mixed in with the code, and the dissasembler will read i tas code. 
