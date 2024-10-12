@@ -58,20 +58,23 @@ typedef struct State8080{
 
 }State8080;
 
-#include "opcodes/machineGroup.h"
+#include "opcodes/controlGroup.h"
+#include "opcodes/arithmeticGroup.h"
 
 void emulateCycle(State8080* state){
     unsigned char* opcode = &state->memory[state->pc];
+    uint16_t HL = state->h << 8;
+
     switch(*opcode){
-        case 0x00: unimplementedInstruction(state); break;
+        case 0x00: noOperation(state); break;
         case 0x01: unimplementedInstruction(state); break;
         case 0x02: unimplementedInstruction(state); break;
         case 0x03: unimplementedInstruction(state); break;
-        case 0x04: unimplementedInstruction(state); break;
+        case 0x04: incrementReg(state, &state->b); break;
         case 0x05: unimplementedInstruction(state); break;
         case 0x06: unimplementedInstruction(state); break;
         case 0x07: unimplementedInstruction(state); break;
-        case 0x08: unimplementedInstruction(state); break;
+        case 0x08: noOperation(state); break;
         case 0x09: unimplementedInstruction(state); break;
         case 0x0A: unimplementedInstruction(state); break;
         case 0x0B: unimplementedInstruction(state); break;
@@ -80,15 +83,15 @@ void emulateCycle(State8080* state){
         case 0x0E: unimplementedInstruction(state); break;
         case 0x0F: unimplementedInstruction(state); break;
 
-        case 0x10: unimplementedInstruction(state); break;
+        case 0x10: noOperation(state); break;
         case 0x11: unimplementedInstruction(state); break;
         case 0x12: unimplementedInstruction(state); break;
         case 0x13: unimplementedInstruction(state); break;
-        case 0x14: unimplementedInstruction(state); break;
+        case 0x14: incrementReg(state, &state->d);  break;
         case 0x15: unimplementedInstruction(state); break;
         case 0x16: unimplementedInstruction(state); break;
         case 0x17: unimplementedInstruction(state); break;
-        case 0x18: unimplementedInstruction(state); break;
+        case 0x18: noOperation(state); break;
         case 0x19: unimplementedInstruction(state); break;
         case 0x1A: unimplementedInstruction(state); break;
         case 0x1B: unimplementedInstruction(state); break;
@@ -97,15 +100,15 @@ void emulateCycle(State8080* state){
         case 0x1E: unimplementedInstruction(state); break;
         case 0x1F: unimplementedInstruction(state); break;
 
-        case 0x20: unimplementedInstruction(state); break;
+        case 0x20: noOperation(state); break;
         case 0x21: unimplementedInstruction(state); break;
         case 0x22: unimplementedInstruction(state); break;
         case 0x23: unimplementedInstruction(state); break;
-        case 0x24: unimplementedInstruction(state); break;
+        case 0x24: incrementReg(state, &state->h); break;
         case 0x25: unimplementedInstruction(state); break;
         case 0x26: unimplementedInstruction(state); break;
         case 0x27: unimplementedInstruction(state); break;
-        case 0x28: unimplementedInstruction(state); break;
+        case 0x28: noOperation(state); break;
         case 0x29: unimplementedInstruction(state); break;
         case 0x2A: unimplementedInstruction(state); break;
         case 0x2B: unimplementedInstruction(state); break;
@@ -114,7 +117,7 @@ void emulateCycle(State8080* state){
         case 0x2E: unimplementedInstruction(state); break;
         case 0x2F: unimplementedInstruction(state); break;
 
-        case 0x30: unimplementedInstruction(state); break;
+        case 0x30: noOperation(state); break;
         case 0x31: unimplementedInstruction(state); break;
         case 0x32: unimplementedInstruction(state); break;
         case 0x33: unimplementedInstruction(state); break;
@@ -122,7 +125,7 @@ void emulateCycle(State8080* state){
         case 0x35: unimplementedInstruction(state); break;
         case 0x36: unimplementedInstruction(state); break;
         case 0x37: unimplementedInstruction(state); break;
-        case 0x38: unimplementedInstruction(state); break;
+        case 0x38: noOperation(state); break;
         case 0x39: unimplementedInstruction(state); break;
         case 0x3A: unimplementedInstruction(state); break;
         case 0x3B: unimplementedInstruction(state); break;

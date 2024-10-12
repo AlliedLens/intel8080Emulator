@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 
 int openRom(unsigned char** buff, char* filename){

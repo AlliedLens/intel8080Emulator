@@ -1,5 +1,7 @@
-#ifndef MACHINEOPCODES_H
-#define MACHINEOPCODES_H
+#include <stdint.h>
+
+#ifndef ARITHMETIC_OPCODES_H
+#define ARITHMETIC_OPCODES_H
 
 #include "../emulatorShell.h"
 #include "../utils.h"
@@ -62,6 +64,15 @@ void subImmediate(State8080* state,  int d8, int carry){
     state->a = ans & 0xFF;
 }
 
+void incrementReg(State8080* state, uint8_t* reg1){
+    uint16_t ans = (uint16_t)(*reg1) + 1;
+    setFlags(state, ans);
+}
+
+void decrementReg(State8080* state, uint8_t* reg1){
+    uint16_t ans = (uint16_t)(*reg1) - 1;
+    setFlags(state, ans);
+}
 
 
 #endif
