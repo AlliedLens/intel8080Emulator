@@ -61,23 +61,30 @@ typedef struct State8080{
 #include "opcodes/controlGroup.h"
 #include "opcodes/arithmeticGroup.h"
 
+
+// INR  Reg = Reg + 1
+// DCR  Reg = Reg - 1
+// INX  Reg<<8|Adjacent Reg = Reg<<8|Adjacent Reg + 1  
+// RLC Reg = Reg << 1 bit 0 = prev bit 7; CY = prev bit 7
+// DAD HL = HL + Reg<<8|Adjacent Reg
+
 void emulateCycle(State8080* state){
     unsigned char* opcode = &state->memory[state->pc];
     uint16_t HL = state->h << 8;
 
     switch(*opcode){
-        case 0x00: noOperation(state); break;
-        case 0x01: unimplementedInstruction(state); break;
-        case 0x02: unimplementedInstruction(state); break;
-        case 0x03: unimplementedInstruction(state); break;
-        case 0x04: incrementReg(state, &state->b); break;
-        case 0x05: unimplementedInstruction(state); break;
+        case 0x00: noOperation(state); break; // NOP
+        case 0x01: unimplementedInstruction(state); break; // LXI B, D16
+        case 0x02: unimplementedInstruction(state); break; 
+        case 0x03: INX(state, &state->b, &state->c); break; // INX B
+        case 0x04: INR(state, &state->b); break;  // INR B
+        case 0x05: DCR(state, &state->b); break; // DCR B
         case 0x06: unimplementedInstruction(state); break;
-        case 0x07: unimplementedInstruction(state); break;
+        case 0x07: RLC(state, &state->a); break;
         case 0x08: noOperation(state); break;
-        case 0x09: unimplementedInstruction(state); break;
+        case 0x09: DAD(state, &state->b, &state->c); break;
         case 0x0A: unimplementedInstruction(state); break;
-        case 0x0B: unimplementedInstruction(state); break;
+        case 0x0B: DCX(state); break;
         case 0x0C: unimplementedInstruction(state); break;
         case 0x0D: unimplementedInstruction(state); break;
         case 0x0E: unimplementedInstruction(state); break;
@@ -87,7 +94,7 @@ void emulateCycle(State8080* state){
         case 0x11: unimplementedInstruction(state); break;
         case 0x12: unimplementedInstruction(state); break;
         case 0x13: unimplementedInstruction(state); break;
-        case 0x14: incrementReg(state, &state->d);  break;
+        case 0x14: INR(state, &state->d);  break;
         case 0x15: unimplementedInstruction(state); break;
         case 0x16: unimplementedInstruction(state); break;
         case 0x17: unimplementedInstruction(state); break;
@@ -104,7 +111,7 @@ void emulateCycle(State8080* state){
         case 0x21: unimplementedInstruction(state); break;
         case 0x22: unimplementedInstruction(state); break;
         case 0x23: unimplementedInstruction(state); break;
-        case 0x24: incrementReg(state, &state->h); break;
+        case 0x24: INR(state, &state->h); break;
         case 0x25: unimplementedInstruction(state); break;
         case 0x26: unimplementedInstruction(state); break;
         case 0x27: unimplementedInstruction(state); break;
