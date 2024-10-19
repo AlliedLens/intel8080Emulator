@@ -11,12 +11,7 @@ void incrementRegister(uint8_t* reg){
     printf("Error: unimplemented Instruction\n");
 }
 
-void setFlags(State8080* state, int ans){
-    state->cc.zero = ((ans&0xFF) == 0);
-    state->cc.sign = ((ans&0x80) == 0);
-    state->cc.carry = (ans > 0xFF);
-    state->cc.parity = checkParity(ans);
-}
+// arithmetic
 
 void INR(State8080* state, uint8_t* reg1){
     uint16_t ans = (uint16_t)(*reg1) + 1;
@@ -43,6 +38,77 @@ void DCX(State8080* state, uint8_t* reg1, uint8_t* reg2){
     *reg1 = (ans & 0xFF00) >> 8;
     *reg2 = (ans & 0x00FF);
 }
+
+
+void DAD(State8080* state, uint8_t* reg1, uint8_t* reg2){
+    uint16_t HL = (state->h << 8 ) | (state->l);
+    uint16_t combined = (*reg1 << 8) | (*reg2);
+
+    uint32_t ans = HL + combined;
+
+    state->cc.carry = (ans & 0x0000)>>16;
+
+    state->h = (ans & 0xFF00) >> 8;
+    state->l = (ans & 0x00FF);
+}
+
+void ADD(State8080* state, uint8_t* reg1){
+    uint16_t ans = state->a + (*reg1);
+    setFlags(state, ans);
+    state->a = ans&0xFF;
+}
+
+void ADC(State8080* state, uint8_t* reg1){
+    uint16_t ans = state->a + (*reg1) + state->cc.carry;
+    setFlags(state, ans);
+    state->a = ans&0xFF;
+}
+
+void SUB(State8080* state, uint8_t* reg1){
+    uint16_t ans = state->a - (*reg1);
+    setFlags(state, ans);
+    state->a = ans&0xFF;
+}
+
+void SBB(State8080* state, uint8_t* reg1){
+    uint16_t ans = state->a - (*reg1) - state->cc.carry;
+    setFlags(state, ans);
+    state->a = ans&0xFF;
+}
+
+//immediate
+
+void ADI(State8080* state){
+    uint8_t* opcode = &state->memory[state->pc];
+    uint16_t ans = state->a + opcode[1];
+    setFlags(state, ans);
+    state->a = ans & 0xFF;
+}
+
+void ACI(State8080* state){
+    uint8_t* opcode = &state->memory[state->pc];
+    uint16_t ans = state->a + opcode[1] + state->cc.carry;
+    setFlags(state, ans);
+    state->a = ans & 0xFF;
+}
+
+void SUI(State8080* state){
+    uint8_t* opcode = &state->memory[state->pc];
+    uint16_t ans = state->a - opcode[1];
+    setFlags(state, ans);
+    state->a = ans & 0xFF;
+}
+
+void SBI(State8080* state){
+    uint8_t* opcode = &state->memory[state->pc];
+    uint16_t ans = state->a - opcode[1] - state->cc.carry;
+    setFlags(state, ans);
+    state->a = ans & 0xFF;
+}
+
+#endif
+
+//shifting
 
 void RLC(State8080* state, uint8_t* reg1){
     uint8_t prevBit7 = (*reg1 >> 7) & 1;
@@ -73,19 +139,3 @@ void RAR(State8080* state, uint8_t* reg1){
     *reg1 = (*reg1 >> 1) | (prevBit7<<8);
     state->cc.carry = prevBit0;
 }
-
-void DAD(State8080* state, uint8_t* reg1, uint8_t* reg2){
-    uint16_t HL = (state->h << 8 ) | (state->l);
-    uint16_t combined = (*reg1 << 8) | (*reg2);
-
-    uint32_t ans = HL + combined;
-
-    state->cc.carry = (ans & 0x0000)>>16;
-
-    state->h = (ans & 0xFF00) >> 8;
-    state->l = (ans & 0x00FF);
-
-}
-
-
-#endif

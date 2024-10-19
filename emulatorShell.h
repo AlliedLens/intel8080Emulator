@@ -345,7 +345,6 @@ int emulateCycle(State8080* state){
         case 0xFE: XXX(state); break;
         case 0xFF: XXX(state); break;
 
-
     }
 
     return opbytes;
