@@ -182,6 +182,31 @@ void RPE(State8080* state){
     }
 }
 
+void RST(State8080* state, uint8_t rstNum){
+    uint16_t ret = state->pc;
+    unsigned char* opcode = &state->memory[state->pc];
+
+
+    state->memory[state->sp - 1] = (ret >> 8) & 0xFF;
+    state->memory[state->sp - 2] = (ret & 0xFF);
+    state->sp = state->sp - 2;
+
+    switch(rstNum){
+        case 0: state->pc = 0x00; break;
+        case 1: state->pc = 0x08; break;
+        case 2: state->pc = 0x10; break;
+        case 3: state->pc = 0x18; break;
+        case 4: state->pc = 0x20; break;
+        case 5: state->pc = 0x28; break;
+        case 6: state->pc = 0x30; break;
+        case 7: state->pc = 0x38; break;
+    }
+}
+
+void PCHL(State8080* state){
+    state->pc = (state->h << 8) | (state->l);
+}
+
 
 
 #endif
