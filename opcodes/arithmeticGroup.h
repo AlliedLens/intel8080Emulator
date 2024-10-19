@@ -50,25 +50,42 @@ void RLC(State8080* state, uint8_t* reg1){
     state->cc.carry = prevBit7;
 }
 
+void RRC(State8080* state, uint8_t* reg1){
+    uint8_t prevBit0 = (*reg1) & 0x01;
+
+    *reg1 = (*reg1 >> 1) | (prevBit0<<8);
+    state->cc.carry = prevBit0;
+}
+
+void RAL(State8080* state, uint8_t* reg1){
+    uint8_t prevCarry = state->cc.carry;
+    uint8_t prevBit7 = (*reg1 >> 7) & 1;
+    
+    *reg1 = (*reg1 << 1) | (prevCarry);
+    state->cc.carry = prevBit7;
+}
+
+void RAR(State8080* state, uint8_t* reg1){
+    uint8_t prevCarry = state->cc.carry;
+    uint8_t prevBit7 = (*reg1 >> 7) & 1;
+    uint8_t prevBit0 = (*reg1) & 0x01;
+
+    *reg1 = (*reg1 >> 1) | (prevBit7<<8);
+    state->cc.carry = prevBit0;
+}
+
 void DAD(State8080* state, uint8_t* reg1, uint8_t* reg2){
     uint16_t HL = (state->h << 8 ) | (state->l);
     uint16_t combined = (*reg1 << 8) | (*reg2);
 
     uint32_t ans = HL + combined;
 
-    state->cc.carry = ans >> 0xFFFF;
+    state->cc.carry = (ans & 0x0000)>>16;
 
     state->h = (ans & 0xFF00) >> 8;
     state->l = (ans & 0x00FF);
 
 }
-
-
-
-// void decrementReg(State8080* state, uint8_t* reg1){
-//     uint16_t ans = (uint16_t)(*reg1) - 1;
-//     setFlags(state, ans);
-// }
 
 
 #endif

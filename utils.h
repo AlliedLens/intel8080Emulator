@@ -25,7 +25,7 @@ int openRom(unsigned char** buff, char* filename){
     return filesize;
 }
 
-int checkParity(uint8_t num){
+int checkParity(uint8_t num){ // returns 1 if even number of 1s else 0
     int count = 0;
 
     while (num){
