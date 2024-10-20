@@ -31,6 +31,10 @@ void INX(State8080* state, uint8_t* reg1, uint8_t* reg2){
     *reg2 = (ans & 0x00FF);
 }
 
+void INX_SP(State8080* state){
+    state->sp = state->sp + 1;
+}
+
 void DCX(State8080* state, uint8_t* reg1, uint8_t* reg2){
     uint16_t combined = *reg1 << 8 | *reg2;
     uint16_t ans = combined - 1;
@@ -39,10 +43,26 @@ void DCX(State8080* state, uint8_t* reg1, uint8_t* reg2){
     *reg2 = (ans & 0x00FF);
 }
 
+void DCX_SP(State8080* state){
+    state->sp = state->sp - 1;
+}
+
 
 void DAD(State8080* state, uint8_t* reg1, uint8_t* reg2){
     uint16_t HL = (state->h << 8 ) | (state->l);
     uint16_t combined = (*reg1 << 8) | (*reg2);
+
+    uint32_t ans = HL + combined;
+
+    state->cc.carry = (ans & 0x0000)>>16;
+
+    state->h = (ans & 0xFF00) >> 8;
+    state->l = (ans & 0x00FF);
+}
+
+void DAD_SP(State8080* state){
+    uint16_t HL = (state->h << 8 ) | (state->l);
+    uint16_t combined = state->sp;
 
     uint32_t ans = HL + combined;
 
