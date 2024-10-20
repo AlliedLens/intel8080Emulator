@@ -58,10 +58,22 @@ void ADD(State8080* state, uint8_t* reg1){
     state->a = ans&0xFF;
 }
 
+void ADDM(State8080* state){
+    uint16_t ans = state->a  + state->memory[ (state->h << 8) | (state->l)];
+    setFlags(state, ans);
+    state->a = ans&0xFF; 
+}
+
 void ADC(State8080* state, uint8_t* reg1){
     uint16_t ans = state->a + (*reg1) + state->cc.carry;
     setFlags(state, ans);
     state->a = ans&0xFF;
+}
+
+void ADCM(State8080* state){
+    uint16_t ans = state->a  + state->memory[ (state->h << 8) | (state->l)] + state->cc.carry;
+    setFlags(state, ans);
+    state->a = ans&0xFF; 
 }
 
 void SUB(State8080* state, uint8_t* reg1){
@@ -70,10 +82,22 @@ void SUB(State8080* state, uint8_t* reg1){
     state->a = ans&0xFF;
 }
 
+void SUBM(State8080* state){
+    uint16_t ans = state->a  - state->memory[ (state->h << 8) | (state->l)];
+    setFlags(state, ans);
+    state->a = ans&0xFF; 
+}
+
 void SBB(State8080* state, uint8_t* reg1){
     uint16_t ans = state->a - (*reg1) - state->cc.carry;
     setFlags(state, ans);
     state->a = ans&0xFF;
+}
+
+void SBBM(State8080* state){
+    uint16_t ans = state->a  - state->memory[ (state->h << 8) | (state->l)] - state->cc.carry;
+    setFlags(state, ans);
+    state->a = ans&0xFF; 
 }
 
 //immediate
@@ -106,7 +130,6 @@ void SBI(State8080* state){
     state->a = ans & 0xFF;
 }
 
-#endif
 
 //shifting
 
@@ -139,3 +162,5 @@ void RAR(State8080* state, uint8_t* reg1){
     *reg1 = (*reg1 >> 1) | (prevBit7<<8);
     state->cc.carry = prevBit0;
 }
+
+#endif

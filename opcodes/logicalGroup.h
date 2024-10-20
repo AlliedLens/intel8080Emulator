@@ -2,14 +2,7 @@
 #define LOGICAL_OPCODES_H
 
 #include "../emulatorShell.h"
-
-
-// void setFlags(State8080* state, int ans){
-//     state->cc.zero = ((ans&0xFF) == 0);
-//     state->cc.sign = ((ans&0x80) == 0);
-//     state->cc.carry = (ans > 0xFF);
-//     state->cc.parity = checkParity(ans);
-// }
+#include "../utils.h"
 
 void CMA(State8080* state, uint8_t* reg1){
     *reg1 = ~(*reg1);
@@ -44,6 +37,10 @@ void CMC(State8080* state){
 
 void STD(State8080* state){
     state->cc.carry = 1;
+}
+
+void STC(State8080* state){
+    state->cc.carry = 0;
 }
 
 //immediate

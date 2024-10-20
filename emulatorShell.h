@@ -58,14 +58,13 @@ typedef struct State8080{
 
 }State8080;
 
+
 #include "opcodes/controlGroup.h"
 #include "opcodes/arithmeticGroup.h"
-
-// INR  Reg = Reg + 1
-// DCR  Reg = Reg - 1
-// INX  Reg<<8|Adjacent Reg = Reg<<8|Adjacent Reg + 1  
-// RLC Reg = Reg << 1 bit 0 = prev bit 7; CY = prev bit 7
-// DAD HL = HL + Reg<<8|Adjacent Reg
+#include "opcodes/logicalGroup.h"
+#include "opcodes/miscGroup.h"
+#include "opcodes/stackGroup.h"
+#include "opcodes/moveGroup.h"
 
 int emulateCycle(State8080* state){
     unsigned char* opcode = &state->memory[state->pc];
@@ -209,39 +208,39 @@ int emulateCycle(State8080* state){
         case 0x7E: XXX(state); break;
         case 0x7F: XXX(state); break;
 
-        case 0x80: XXX(state); break;
-        case 0x81: XXX(state); break;
-        case 0x82: XXX(state); break;
-        case 0x83: XXX(state); break;
-        case 0x84: XXX(state); break;
-        case 0x85: XXX(state); break;
-        case 0x86: XXX(state); break;
-        case 0x87: XXX(state); break;
-        case 0x88: XXX(state); break;
-        case 0x89: XXX(state); break;
-        case 0x8A: XXX(state); break;
-        case 0x8B: XXX(state); break;
-        case 0x8C: XXX(state); break;
-        case 0x8D: XXX(state); break;
-        case 0x8E: XXX(state); break;
-        case 0x8F: XXX(state); break;
+        case 0x80: ADD(state, &state->b); break;
+        case 0x81: ADD(state, &state->c); break;
+        case 0x82: ADD(state, &state->d); break;
+        case 0x83: ADD(state, &state->e); break;
+        case 0x84: ADD(state, &state->h); break;
+        case 0x85: ADD(state, &state->l); break;
+        case 0x86: ADDM(state); break;
+        case 0x87: ADD(state, &state->a); break;
+        case 0x88: ADC(state, &state->b); break;
+        case 0x89: ADC(state, &state->c); break;
+        case 0x8A: ADC(state, &state->d); break;
+        case 0x8B: ADC(state, &state->e); break;
+        case 0x8C: ADC(state, &state->h); break;
+        case 0x8D: ADC(state, &state->l); break;
+        case 0x8E: ADCM(state); break;
+        case 0x8F: ADC(state, &state->a);
 
-        case 0x90: XXX(state); break;
-        case 0x91: XXX(state); break;
-        case 0x92: XXX(state); break;
-        case 0x93: XXX(state); break;
-        case 0x94: XXX(state); break;
-        case 0x95: XXX(state); break;
-        case 0x96: XXX(state); break;
-        case 0x97: XXX(state); break;
-        case 0x98: XXX(state); break;
-        case 0x99: XXX(state); break;
-        case 0x9A: XXX(state); break;
-        case 0x9B: XXX(state); break;
-        case 0x9C: XXX(state); break;
-        case 0x9D: XXX(state); break;
-        case 0x9E: XXX(state); break;
-        case 0x9F: XXX(state); break;
+        case 0x90: SUB(state, &state->b); break;
+        case 0x91: SUB(state, &state->c); break;
+        case 0x92: SUB(state, &state->d); break;
+        case 0x93: SUB(state, &state->e); break;
+        case 0x94: SUB(state, &state->h); break;
+        case 0x95: SUB(state, &state->l); break;
+        case 0x96: SUBM(state); break;
+        case 0x97: SUB(state, &state->a); break;
+        case 0x98: SBB(state, &state->b); break;
+        case 0x99: SBB(state, &state->c); break;
+        case 0x9A: SBB(state, &state->d); break;
+        case 0x9B: SBB(state, &state->e); break;
+        case 0x9C: SBB(state, &state->h); break;
+        case 0x9D: SBB(state, &state->l); break;
+        case 0x9E: SBBM(state); break;
+        case 0x9F: SBB(state, &state->a); break;
 
         case 0xA0: XXX(state); break;
         case 0xA1: XXX(state); break;
