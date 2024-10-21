@@ -58,7 +58,6 @@ typedef struct State8080{
 
 }State8080;
 
-
 #include "opcodes/controlGroup.h"
 #include "opcodes/arithmeticGroup.h"
 #include "opcodes/logicalGroup.h"
@@ -214,7 +213,7 @@ int emulateCycle(State8080* state){
         case 0x83: ADD(state, &state->e); break;
         case 0x84: ADD(state, &state->h); break;
         case 0x85: ADD(state, &state->l); break;
-        case 0x86: ADDM(state); break;
+        case 0x86: ADD(state, &state->memory[(state->h<<8) | state->l]); break;
         case 0x87: ADD(state, &state->a); break;
         case 0x88: ADC(state, &state->b); break;
         case 0x89: ADC(state, &state->c); break;
@@ -222,7 +221,7 @@ int emulateCycle(State8080* state){
         case 0x8B: ADC(state, &state->e); break;
         case 0x8C: ADC(state, &state->h); break;
         case 0x8D: ADC(state, &state->l); break;
-        case 0x8E: ADCM(state); break;
+        case 0x8E: ADC(state, &state->memory[(state->h<<8) | state->l]); break;
         case 0x8F: ADC(state, &state->a);
 
         case 0x90: SUB(state, &state->b); break;
@@ -231,7 +230,7 @@ int emulateCycle(State8080* state){
         case 0x93: SUB(state, &state->e); break;
         case 0x94: SUB(state, &state->h); break;
         case 0x95: SUB(state, &state->l); break;
-        case 0x96: SUBM(state); break;
+        case 0x96: SUB(state, &state->memory[(state->h<<8) | state->l]); break;
         case 0x97: SUB(state, &state->a); break;
         case 0x98: SBB(state, &state->b); break;
         case 0x99: SBB(state, &state->c); break;
@@ -239,7 +238,7 @@ int emulateCycle(State8080* state){
         case 0x9B: SBB(state, &state->e); break;
         case 0x9C: SBB(state, &state->h); break;
         case 0x9D: SBB(state, &state->l); break;
-        case 0x9E: SBBM(state); break;
+        case 0x9E: SBB(state, &state->memory[(state->h<<8) | state->l]); break;
         case 0x9F: SBB(state, &state->a); break;
 
         case 0xA0: ANA(state, &state->b); break;
@@ -343,7 +342,6 @@ int emulateCycle(State8080* state){
         case 0xFD: CALL(state); opbytes=3; break;
         case 0xFE: CPI(state); opbytes=2; break;
         case 0xFF: RST(state, 7); break;
-
     }
 
     return opbytes;

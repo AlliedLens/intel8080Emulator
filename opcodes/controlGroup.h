@@ -126,6 +126,19 @@ void CPE(State8080* state){
     }
 }
 
+void CM(State8080* state){
+    if (state->cc.sign==1){
+        CALL(state);
+    }
+}
+
+void CP(State8080* state){
+    if (state->cc.sign==0){
+        CALL(state);
+    }
+}
+
+
 // Return
 
 void RET(State8080* state){
@@ -164,10 +177,23 @@ void RPO(State8080* state){
 }
 
 void RPE(State8080* state){
-    if (state->cc.parity == 0){
+    if (state->cc.parity == 1){
         RET(state);
     }
 }
+
+void RP(State8080* state){
+    if (state->cc.sign==0){
+        RET(state);
+    }
+}
+
+void RM(State8080* state){
+    if (state->cc.sign==1){
+        RET(state);
+    }
+}
+
 
 void RST(State8080* state, uint8_t rstNum){
     uint16_t ret = state->pc;
