@@ -58,6 +58,26 @@ typedef struct State8080{
 
 }State8080;
 
+void initializeEmulator(State8080* state){
+    state->a = 0x00;
+    state->b = 0x00;
+    state->c = 0x00;
+    state->d = 0x00;
+    state->e = 0x00;
+    state->h = 0x00;
+    state->l = 0x00;
+
+    state->pc = 0x0000;
+    state->sp = 0xFFFF;
+
+    state->cc.auxCarr = 0;
+    state->cc.carry = 0;
+    state->cc.sign = 0;
+    state->cc.zero = 0;
+    state->cc.parity = 0;
+
+}
+
 #include "opcodes/controlGroup.h"
 #include "opcodes/arithmeticGroup.h"
 #include "opcodes/logicalGroup.h"

@@ -35,7 +35,7 @@
 
 #include <stdio.h>
 #include "disassembler.h"
-
+#include "emulatorShell.h"
 
 void printProgram(unsigned char* buff, int size){
     printf("\n============================================================================Program--Machine--Code=================================================================================\n");
@@ -53,7 +53,48 @@ void disassembleProgram(unsigned char* buff, int size){
         pc += disassemble8080(buff, pc);
     }    
     printf("\n==============================================================================================================================================================================\n");
+}
 
+void printState8080(State8080* state) {
+    printf("\n====-----State-----====\n");
+    printf("Registers:\n");
+    printf("A  (Accumulator): 0x%02X\n", state->a);
+    printf("B: 0x%02X\n", state->b);
+    printf("C: 0x%02X\n", state->c);
+    printf("D: 0x%02X\n", state->d);
+    printf("E: 0x%02X\n", state->e);
+    printf("H: 0x%02X\n", state->h);
+    printf("L: 0x%02X\n", state->l);
+
+    printf("\nStack Pointer (SP): 0x%04X\n", state->sp);
+    printf("Program Counter (PC): 0x%04X\n", state->pc);
+
+    printf("\nCondition Codes (Flags):\n");
+    printf("Sign (S): %d\n", state->cc.sign);
+    printf("Zero (Z): %d\n", state->cc.zero);
+    printf("Auxiliary Carry (AC): %d\n", state->cc.auxCarr);
+    printf("Parity (P): %d\n", state->cc.parity);
+    printf("Carry (C): %d\n", state->cc.carry);
+
+    printf("\nEnable Interrupts (EN): %d\n", state->en);
+    printf("\n======================\n");
+}
+
+void stepByStepDebugger(State8080* state, unsigned char* buff){
+    char input;
+    printf("\n Press y to Continue, Press x to exit, Press s to see the registers and flags \n");
+    while (1){
+        input = getchar();
+        switch(input){
+            case 'y':
+                disassemble8080(buff, state->pc);
+                state->pc = state->pc + emulateCycle(state);
+                break;
+            case 'n': exit(0); break;
+            case 's': printState8080(state); break;
+        }
+    }
 }
 
 #endif
+

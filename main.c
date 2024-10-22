@@ -14,9 +14,11 @@ void main(int argc, char** argv){
     int i = 0;
     State8080* intel8080;
     intel8080 = (State8080*)malloc(sizeof(State8080));
+    initializeEmulator(intel8080);
 
-    while (i < 100){
-        emulateCycle(intel8080);
-        i++;
-    }
+    // while (intel8080->pc < 50){
+    //     disassemble8080(program, intel8080->pc);
+    //     intel8080->pc = intel8080->pc + emulateCycle(intel8080);
+    // }
+    stepByStepDebugger(intel8080, program);
 }
